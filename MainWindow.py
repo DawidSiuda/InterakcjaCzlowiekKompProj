@@ -17,6 +17,8 @@ from PyQt5.QtWidgets import QPlainTextEdit
 from datetime import datetime
 # from PyQt5 import QPoint
 # from PyQt5.QtWidgets import QTextCursor
+from threading import Thread
+from time import sleep
 
 
 class MainWindow():
@@ -188,7 +190,21 @@ class MainWindow():
 
 def main():
     mainWindow = MainWindow()
+
     mainWindow.run()
+
+    # thread = Thread(target=mainWindow.run)
+    # thread.start()
+    #
+    # # recognize voice there
+    # # we can run methods from main window there
+    # # eg open menu of colors after 4 sec:
+    print("sth1")
+    sleep(2)
+    mainWindow.publicOpen_Menu_Colors()
+    print("sth2")
+
+    # thread.join()
 
 
 if __name__ == "__main__":
