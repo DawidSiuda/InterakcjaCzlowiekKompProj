@@ -15,6 +15,7 @@ from time import sleep
 # publicOpen_Menu_Advanced_ViewOption_MoreOptions
 # publicOpen_Menu_Advanced_ViewOption_MoreOptions_MaximizeWinow
 # publicOpen_Menu_Help
+# publicCloseAllMenus
 
 class Worker(QObject):
     finished = pyqtSignal()
@@ -25,7 +26,10 @@ class Worker(QObject):
 
         # example
         while True:
-            sleep(5)
+            sleep(3)
             self.progress.emit("publicOpen_Menu_Advanced_ViewOption")
             self.log.emit("printt log: publicOpen_Menu_Advanced_ViewOption")
+            sleep(3)
+            self.progress.emit("publicCloseAllMenus")
+            self.log.emit("printt log: publicCloseAllMenus")
         self.finished.emit()

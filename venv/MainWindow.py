@@ -109,6 +109,16 @@ class MainWindow():
         point = self.window.mapToGlobal(QPoint(180, 20))
         self.menuHelp.exec(point)
 
+    def publicCloseAllMenus(self):
+        self.publicPrintMsg("Zamkniento wszystkie menu DAWID")
+        self.submenuViewOption.hide()
+        self.menuHelp.hide()
+        self.submenuViewOption_moreOptions.hide()
+        self.submenuViewOption.hide()
+        self.menuAdvanced.hide()
+        self.menuColors.hide()
+        self.menuFile.hide()
+
     def runAction(self, functionName):
         if functionName == "publicButton1Function":
             self.publicButton1Function(self.window)
@@ -138,6 +148,8 @@ class MainWindow():
             self.publicOpen_Menu_Advanced_ViewOption_MoreOptions_MaximizeWinow()
         elif functionName == "publicOpen_Menu_Help":
             self.publicOpen_Menu_Help()
+        elif functionName == "publicCloseAllMenus":
+            self.publicCloseAllMenus()
 
         else:
             print("FALSE")
@@ -169,8 +181,8 @@ class MainWindow():
         self.button1.setGeometry(80, 150, 200, 100)
         self.button1.setFont(QFont('Arial', 15))
         self.button1.setStyleSheet("background-color: white;"
-                              "border : 1px solid black;"
-                              "border-radius : 20px;")
+                                   "border : 1px solid black;"
+                                   "border-radius : 20px;")
         self.button1.show()
 
         # Create button2
@@ -179,8 +191,8 @@ class MainWindow():
         self.button2.setGeometry(420, 150, 200, 100)
         self.button2.setFont(QFont('Arial', 15))
         self.button2.setStyleSheet("background-color: white;"
-                                  "border : 1px solid black;" 
-                                  "border-radius : 20px;")
+                                   "border : 1px solid black;"
+                                   "border-radius : 20px;")
         self.button2.show()
 
         # Create menu bar
@@ -219,24 +231,24 @@ class MainWindow():
         self.window.show()
 
         # 5 Create thread Worker to run voice recognition
-                # Step 2: Create a QThread object
+        # Step 2: Create a QThread object
         self.thread = QThread()
-                # Step 3: Create a worker object
+        # Step 3: Create a worker object
         self.worker = Worker.Worker()
-                # Step 4: Move worker to the thread
+        # Step 4: Move worker to the thread
         self.worker.moveToThread(self.thread)
-                # Step 5: Connect signals and slots
+        # Step 5: Connect signals and slots
         self.thread.started.connect(self.worker.run)
         self.worker.finished.connect(self.thread.quit)
         self.worker.finished.connect(self.worker.deleteLater)
         self.thread.finished.connect(self.thread.deleteLater)
         self.worker.progress.connect(self.runAction)
         self.worker.log.connect(self.publicPrintMsg)
-                # Step 6: Start the thread
+        # Step 6: Start the thread
         self.thread.start()
 
-                # Final resets
-                # self.longRunningBtn.setEnabled(False)
+        # Final resets
+        # self.longRunningBtn.setEnabled(False)
         self.thread.finished.connect(
             lambda: self.longRunningBtn.setEnabled(True)
         )
